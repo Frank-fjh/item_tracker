@@ -14,10 +14,14 @@ from PIL import ImageDraw,Image,ImageFont
 from multiprocessing import Process,Queue
 
 # %%
+if not os.path.exists('database'):
+    os.makedirs('database')
+
+# %%
 # 程序参数  距离为归一化距离
 db_name = 'database/item_tracker.db' #物品参数，可查看Item类
 db2_name = 'database/event.db'  #日志，包含物品新增、删除、移动、恢复等
-model_name = 'model/yolov8x.pt' #采用的yolo模型
+model_name = 'model/yolov8s.pt' #采用的yolo模型
 confidence = 0.6 #置信度，高于此值才认为识别到了该物体，值越高识别到的物体越少
 edge_range = [0.1,0.2,0.025] #物体中心离边界距离小于[0]一定算在边界,大于[1]一定不在边界,其余情况下物体边缘与边界之间的缝隙小于[2]算在边界
 recover_distance = 0.03 #新识别到的物体若与已被删除的旧物体小于此距离可认为是同一物体
